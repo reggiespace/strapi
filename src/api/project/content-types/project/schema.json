@@ -47,6 +47,27 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "role": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "funFact": {
+      "type": "richtext"
+    },
+    "projectStatus": {
+      "type": "enumeration",
+      "enum": [
+        "Completed",
+        "In Progress",
+        "Archived",
+        "Shipped"
+      ]
+    },
+    "teamSize": {
+      "type": "string"
     }
   }
 }

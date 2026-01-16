@@ -481,9 +481,11 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.RichText;
     displayOrder: Schema.Attribute.Integer;
+    duration: Schema.Attribute.String;
     featuredImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
+    funFact: Schema.Attribute.RichText;
     githubLink: Schema.Attribute.String;
     liveDemoLink: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -492,11 +494,16 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
       'api::project.project'
     > &
       Schema.Attribute.Private;
+    projectStatus: Schema.Attribute.Enumeration<
+      ['Completed', 'In Progress', 'Archived', 'Shipped']
+    >;
     publishedAt: Schema.Attribute.DateTime;
+    role: Schema.Attribute.String;
     slug: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     tags: Schema.Attribute.String;
+    teamSize: Schema.Attribute.String;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

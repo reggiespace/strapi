@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leftorium_ratings",
+  "info": {
+    "singularName": "leftorium-rating",
+    "pluralName": "leftorium-ratings",
+    "displayName": "Leftorium Rating"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "score": {
+      "type": "integer"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::leftorium-product.leftorium-product"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::leftorium-user.leftorium-user"
+    }
+  }
+}

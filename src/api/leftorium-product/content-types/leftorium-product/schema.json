@@ -62,6 +62,14 @@
     },
     "features": {
       "type": "json"
+    },
+    "rating_avg": {
+      "type": "integer",
+      "default": 0
+    },
+    "rating_count": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

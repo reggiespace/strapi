@@ -464,6 +464,40 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiContactMessageContactMessage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'contact_messages';
+  info: {
+    displayName: 'Contact Message';
+    pluralName: 'contact-messages';
+    singularName: 'contact-message';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    isRead: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isReplied: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact-message.contact-message'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    subject: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLeftoriumCommentLeftoriumComment
   extends Struct.CollectionTypeSchema {
   collectionName: 'leftorium_comments';
@@ -543,6 +577,8 @@ export interface ApiLeftoriumProductLeftoriumProduct
       Schema.Attribute.Private;
     price: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    rating_avg: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    rating_count: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     short_description: Schema.Attribute.Text;
     slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String &
@@ -551,6 +587,43 @@ export interface ApiLeftoriumProductLeftoriumProduct
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLeftoriumRatingLeftoriumRating
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'leftorium_ratings';
+  info: {
+    displayName: 'Leftorium Rating';
+    pluralName: 'leftorium-ratings';
+    singularName: 'leftorium-rating';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::leftorium-rating.leftorium-rating'
+    > &
+      Schema.Attribute.Private;
+    product: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::leftorium-product.leftorium-product'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    score: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::leftorium-user.leftorium-user'
+    >;
   };
 }
 
@@ -1184,8 +1257,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::contact-message.contact-message': ApiContactMessageContactMessage;
       'api::leftorium-comment.leftorium-comment': ApiLeftoriumCommentLeftoriumComment;
       'api::leftorium-product.leftorium-product': ApiLeftoriumProductLeftoriumProduct;
+      'api::leftorium-rating.leftorium-rating': ApiLeftoriumRatingLeftoriumRating;
       'api::leftorium-suggestion.leftorium-suggestion': ApiLeftoriumSuggestionLeftoriumSuggestion;
       'api::leftorium-user.leftorium-user': ApiLeftoriumUserLeftoriumUser;
       'api::project.project': ApiProjectProject;

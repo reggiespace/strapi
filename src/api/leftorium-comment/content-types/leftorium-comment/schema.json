@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leftorium_comments",
+  "info": {
+    "singularName": "leftorium-comment",
+    "pluralName": "leftorium-comments",
+    "displayName": "Leftorium Comment"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "text"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::leftorium-product.leftorium-product"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::leftorium-user.leftorium-user"
+    }
+  }
+}

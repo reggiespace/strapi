@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leftorium_users",
+  "info": {
+    "singularName": "leftorium-user",
+    "pluralName": "leftorium-users",
+    "displayName": "Leftorium User"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "username": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}

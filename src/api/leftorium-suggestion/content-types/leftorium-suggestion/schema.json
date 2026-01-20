@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "leftorium_suggestions",
+  "info": {
+    "singularName": "leftorium-suggestion",
+    "pluralName": "leftorium-suggestions",
+    "displayName": "LeftoriumSuggestion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "problem": {
+      "type": "text"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "features": {
+      "type": "blocks"
+    },
+    "votes": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

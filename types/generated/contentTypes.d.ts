@@ -464,6 +464,168 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiLeftoriumCommentLeftoriumComment
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'leftorium_comments';
+  info: {
+    displayName: 'Leftorium Comment';
+    pluralName: 'leftorium-comments';
+    singularName: 'leftorium-comment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::leftorium-comment.leftorium-comment'
+    > &
+      Schema.Attribute.Private;
+    product: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::leftorium-product.leftorium-product'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::leftorium-user.leftorium-user'
+    >;
+  };
+}
+
+export interface ApiLeftoriumProductLeftoriumProduct
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'leftorium_products';
+  info: {
+    displayName: 'LeftoriumProduct';
+    pluralName: 'leftorium-products';
+    singularName: 'leftorium-product';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    art_media: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    art_url: Schema.Attribute.String;
+    category: Schema.Attribute.Enumeration<
+      [
+        'Kitchen Gear',
+        'Office Supplies',
+        'Workshop Tools',
+        'Sports Equipment',
+        'Lab Prototype',
+        'AI',
+      ]
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText;
+    features: Schema.Attribute.JSON;
+    features_old: Schema.Attribute.Blocks;
+    is_real: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::leftorium-product.leftorium-product'
+    > &
+      Schema.Attribute.Private;
+    price: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    short_description: Schema.Attribute.Text;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLeftoriumSuggestionLeftoriumSuggestion
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'leftorium_suggestions';
+  info: {
+    displayName: 'LeftoriumSuggestion';
+    pluralName: 'leftorium-suggestions';
+    singularName: 'leftorium-suggestion';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    features: Schema.Attribute.Blocks;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::leftorium-suggestion.leftorium-suggestion'
+    > &
+      Schema.Attribute.Private;
+    problem: Schema.Attribute.Text;
+    publishedAt: Schema.Attribute.DateTime;
+    tagline: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    votes: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+  };
+}
+
+export interface ApiLeftoriumUserLeftoriumUser
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'leftorium_users';
+  info: {
+    displayName: 'Leftorium User';
+    pluralName: 'leftorium-users';
+    singularName: 'leftorium-user';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    avatar: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::leftorium-user.leftorium-user'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    username: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    users_permissions_user: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+  };
+}
+
 export interface ApiProjectProject extends Struct.CollectionTypeSchema {
   collectionName: 'projects';
   info: {
@@ -1022,6 +1184,10 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::leftorium-comment.leftorium-comment': ApiLeftoriumCommentLeftoriumComment;
+      'api::leftorium-product.leftorium-product': ApiLeftoriumProductLeftoriumProduct;
+      'api::leftorium-suggestion.leftorium-suggestion': ApiLeftoriumSuggestionLeftoriumSuggestion;
+      'api::leftorium-user.leftorium-user': ApiLeftoriumUserLeftoriumUser;
       'api::project.project': ApiProjectProject;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
